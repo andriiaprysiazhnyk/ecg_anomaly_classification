@@ -1,0 +1,33 @@
+ptb_path: /mnt/store/userdata/aprysiazhnyk/ecg_anomaly_classification/ptb_large_dataset
+log_dir: /mnt/store/userdata/aprysiazhnyk/ecg_anomaly_classification/logs/time_frequency_domain
+
+model:
+  type: cnn
+  # hidden_size: 200
+  cnn_layers: [[32, 11], [64, 7], [128, 5], [256, 5]]
+  dropout: 0.5
+  # num_layers: 2
+  fc_layers: [128, 64]
+
+transform:
+  type: scalogram
+  # window_size: 50
+  # n_overlap: 30
+  max_width: 10
+  add_time_domain: True
+
+batch_size: 64
+num_epochs: 200
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+scheduler:
+  name: step
+  # factor: 0.5
+  # patience: 2
+  step_size: 50
+  gamma: 0.8
+
+metrics: [accuracy, f1, precision, recall]
